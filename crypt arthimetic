@@ -1,0 +1,28 @@
+import itertools
+
+def solve_cryptarithmetic(puzzle):
+    # Extract unique letters
+    letters = set()
+    for word in puzzle.split():
+        letters.update(set(word))
+    letters = list(letters)
+
+    # Generate permutations and check
+    for perm in itertools.permutations(range(10), len(letters)):
+        if any(perm[letters.index(word[0])] == 0 for word in puzzle.split() if len(word) > 1):
+            continue
+        mapping = dict(zip(letters, perm))
+        if sum(mapping[word] for word in puzzle.split()[:-1]) == mapping[puzzle.split()[-1][0]]:
+            return mapping
+
+    return None
+
+# Example usage:
+puzzle = "SEND + MORE = MONEY"
+solution = solve_cryptarithmetic(puzzle)
+if solution:
+    print("Solution found:")
+    for word in puzzle.split():
+        print(f"{word}: {''.join(str(solution[char]) for char in word)}")
+else:
+    print("No solution exists.")
