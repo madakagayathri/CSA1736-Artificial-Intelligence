@@ -1,0 +1,14 @@
+def water_jug_problem(max_jug1, max_jug2, target):
+    def gcd(a, b):
+        return a if b == 0 else gcd(b, a % b)
+
+    if target > max(max_jug1, max_jug2) or target % gcd(max_jug1, max_jug2) != 0:
+        return None
+    return True
+
+# Example usage:
+max_jug1, max_jug2, target = 5, 3, 4
+if water_jug_problem(max_jug1, max_jug2, target):
+    print("Solution exists")
+else:
+    print("No solution exists")
